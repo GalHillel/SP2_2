@@ -20,10 +20,13 @@ TEST_CASE("Test player")
     CHECK(p1.stacksize() == 0);
     CHECK(p2.stacksize() == 0);
     Game g(p1, p2);
-    g.playTurn();
-    CHECK(g.getTurn1() > 0);
-    CHECK(g.getTurn2() > 0);
-    CHECK(p2.stacksize() == 0);
+    for (int i = 0; i < 10; i++)
+    {
+        g.playTurn();
+        CHECK(g.getTurn1() > i);
+        g.playTurn();
+        CHECK(g.getTurn2() > i);
+    }
 }
 
 TEST_CASE("Test card")
@@ -39,7 +42,7 @@ TEST_CASE("Test card")
     CHECK(c2.getRank() == Rank::QUEEN);
 }
 
-TEST_CASE("Test game constructor")
+TEST_CASE("Test game")
 {
     Player p1("John");
     Player p2("Jane");
