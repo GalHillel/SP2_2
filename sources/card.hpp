@@ -1,42 +1,28 @@
-#ifndef CARD_HPP
-#define CARD_HPP
+#ifndef CARD_H
+#define CARD_H
+
+#include <string>
 
 namespace ariel
 {
-    enum class Shape
-    {
-        SPADE,
-        HEART,
-        CLUB,
-        DIAMOND
-    };
-    enum class Rank
-    {
-        ACE,
-        TWO,
-        THREE,
-        FOUR,
-        FIVE,
-        SIX,
-        SEVEN,
-        EIGHT,
-        NINE,
-        TEN,
-        JACK,
-        QUEEN,
-        KING
-    };
     class Card
     {
     private:
-        Shape shape;
-        Rank rank;
+        int num;
+        char suit;
 
     public:
-        Card(Shape s, Rank r);
+        Card();
+        Card(int num, char suit);
+        Card(const Card &other);
+        Card(Card &&other) noexcept;
+        Card &operator=(const Card &other);
+        Card &operator=(Card &&other) noexcept;
         ~Card();
-        Shape getShape();
-        Rank getRank();
+        int getNum();
+        char getSuit();
+        std::string toString();
     };
 }
-#endif // CARD_HPP
+
+#endif

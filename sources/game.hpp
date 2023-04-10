@@ -1,6 +1,7 @@
-#ifndef GAME_HPP
-#define GAME_HPP
+#ifndef GAME_H
+#define GAME_H
 
+#include <vector>
 #include "player.hpp"
 
 namespace ariel
@@ -8,24 +9,36 @@ namespace ariel
     class Game
     {
     private:
-        Player player1;
-        Player player2;
-        int player1Turns;
-        int player2Turns;
+        Player &player1;
+        Player &player2;
+        std::string log;
+        std::string lastTurn;
+        bool tie;
+        int numOfTie;
+        int draws;
+        int turns;
+        int p1Wins;
+        int p2Wins;
+        int p1CardsWon;
+        int p2CardsWon;
 
     public:
-        Game(Player p1, Player p2);
+        Game();
+        Game(Player &player1, Player &player2);
+        Game(const Game &other);
+        Game &operator=(const Game &other);
+        Game(Game &&other) noexcept;
+        Game &operator=(Game &&other) noexcept;
         ~Game();
-        void playTurn();
-        void playAll();
+        int playTurn();
         void printLastTurn();
+        void playAll();
         void printWiner();
         void printLog();
         void printStats();
-        int getTurn1();
-        int getTurn2();
-        Player getPLayer1();
-        Player getPLayer2();
+        Player getFirstPlayer();
+        Player getSecondPlayer();
     };
 }
-#endif // GAME_HPP
+
+#endif

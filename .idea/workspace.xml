@@ -15,7 +15,15 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0f89ca3d-9580-4a0c-b2ee-1dfb479ece24" name="Changes" comment="First commit" />
+    <list default="true" id="0f89ca3d-9580-4a0c-b2ee-1dfb479ece24" name="Changes" comment="First commit">
+      <change beforePath="$PROJECT_DIR$/StudentTest1.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/StudentTest1.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sources/card.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/sources/card.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sources/card.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/sources/card.hpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sources/game.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/sources/game.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sources/game.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/sources/game.hpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sources/player.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/sources/player.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sources/player.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/sources/player.hpp" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -90,6 +98,11 @@
   }
 }</component>
   <component name="RunManager">
+    <configuration default="true" type="CLionExternalRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true">
+      <method v="2">
+        <option name="CLION.EXTERNAL.BUILD" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="Demo.cpp" type="CppFileRunConfiguration" factoryName="CppFileRunConfiguration" temporary="true" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="SP2_2" TARGET_NAME="Demo.cpp" CONFIG_NAME="Demo.cpp">
       <option name="sourceFile" value="Demo.cpp" />
       <method v="2">
@@ -117,6 +130,7 @@
       <workItem from="1679912296774" duration="2150000" />
       <workItem from="1679929694264" duration="3700000" />
       <workItem from="1679992102518" duration="678000" />
+      <workItem from="1681112965582" duration="4000" />
     </task>
     <task id="LOCAL-00001" summary="First commit">
       <created>1679642852483</created>
