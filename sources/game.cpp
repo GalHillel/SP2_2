@@ -6,6 +6,7 @@
 #include <algorithm>
 #include <random>
 #include <chrono>
+
 namespace ariel
 {
     Player player = Player();
@@ -29,10 +30,10 @@ namespace ariel
     {
         int index = 0;
         std::vector<Card> deck;
-        for (char suit : {'H', 'D', 'C', 'S'})
+        for (Rank rank : {Ace, Two, Three, Four, Five, Six, Seven, Eight, Nine, Ten, Jack, Queen, King})
         {
-            for (int num = 1; num <= 13; num++)
-                deck.push_back(Card(num, suit));
+            for (Shape shape : {Hearts, Diamonds, Clubs, Spades})
+                deck.push_back(Card(rank, shape));
         }
         unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
         std::mt19937 theSeed(seed);
@@ -52,66 +53,78 @@ namespace ariel
             throw std::invalid_argument("Cannot play with one player\n");
             return 1;
         }
-        if (player1.stacksize() == 0)
+        else if (((player1.stacksize() <= 0 && player2.stacksize() <= 0) || turns >= 26) && !tie)
         {
-            throw std::invalid_argument("Game is over\n");
+            throw std::exception();
             return 1;
-        }
-        if (tie)
-        {
-            player1.getCards().pop_back();
-            player2.getCards().pop_back();
-
-            player1.setStackSize(player1.stacksize() - 1);
-            player2.setStackSize(player2.stacksize() - 1);
-            draws++;
-        }
-        Card c1 = player1.getCards().back();
-        Card c2 = player2.getCards().back();
-        player1.getCards().pop_back();
-        player2.getCards().pop_back();
-        player1.setStackSize(player1.stacksize() - 1);
-        player2.setStackSize(player2.stacksize() - 1);
-        if (c1.getNum() > c2.getNum())
-        {
-            player1.setCardsTaken(player1.cardesTaken() + 2 + 4 * numOfTie);
-            lastTurn = player1.getName() + " " + c1.toString() + ", " + player2.getName() + " " + c2.toString() + ", " + player1.getName() + " wins!";
-            log += lastTurn;
-            tie = false;
-            numOfTie = 0;
-            lastTurn = "";
-            turns++;
-            player1.setStackSize(player1.getCards().size());
-            player2.setStackSize(player2.getCards().size());
-        }
-        else if (c1.getNum() < c2.getNum())
-        {
-            player2.setCardsTaken(player2.cardesTaken() + 2 + 4 * numOfTie);
-            lastTurn += player1.getName() + " " + c1.toString() + ", " + player2.getName() + " " + c2.toString() + ", " + player2.getName() + " wins!";
-            log += lastTurn;
-            tie = false;
-            numOfTie = 0;
-            lastTurn = "";
-            turns++;
-            player1.setStackSize(player1.getCards().size());
-            player2.setStackSize(player2.getCards().size());
         }
         else
         {
-            tie = true;
-            numOfTie++;
-            lastTurn += player1.getName() + " " + c1.toString() + ", " + player2.getName() + " " + c2.toString() + ", tie. ";
-            playTurn();
+            if (tie)
+            {
+                player1.getCards().pop_back();
+                player1.setStackSize(player1.stacksize() - 1);
+
+                player2.getCards().pop_back();
+                player2.setStackSize(player2.stacksize() - 1);
+
+                draws++;
+            }
+
+            Card c1 = player1.getCards().back();
+            Card c2 = player2.getCards().back();
+
+            player1.getCards().pop_back();
+            player1.setStackSize(player1.stacksize() - 1);
+
+            player2.getCards().pop_back();
+            player2.setStackSize(player2.stacksize() - 1);
+
+            if (c1.getRank() > c2.getRank())
+            {
+                player1.setCardsTaken(player1.cardesTaken() + 2 + 4 * numOfTie);
+                lastTurn = player1.getName() + " " + c1.toString() + ", " + player2.getName() + " " + c2.toString() + ", " + player1.getName() + " wins!\n";
+                log += lastTurn;
+                tie = false;
+                numOfTie = 0;
+                lastTurn = "";
+                turns++;
+
+                player1.setStackSize(player1.getCards().size());
+                player2.setStackSize(player2.getCards().size());
+            }
+            else if (c1.getRank() < c2.getRank())
+            {
+                player2.setCardsTaken(player2.cardesTaken() + 2 + 4 * numOfTie);
+                lastTurn += player1.getName() + " " + c1.toString() + ", " + player2.getName() + " " + c2.toString() + ", " + player2.getName() + " wins!\n";
+                log += lastTurn;
+                tie = false;
+                numOfTie = 0;
+                lastTurn = "";
+                turns++;
+
+                player1.setStackSize(player1.getCards().size());
+                player2.setStackSize(player2.getCards().size());
+            }
+            else
+            {
+                tie = true;
+                numOfTie++;
+                lastTurn += player1.getName() + " " + c1.toString() + ", " + player2.getName() + " " + c2.toString() + ", tie.\n";
+                playTurn();
+            }
         }
         return 0;
     }
 
     void Game::playAll()
     {
-        while (player1.getCards().size() != 0)
+        while (player1.getCards().size() != 0 && player2.getCards().size() != 0 && turns < 26)
         {
             playTurn();
         }
+        player1.setStackSize(0);
+        player2.setStackSize(0);
     }
 
     void Game::printWiner()
@@ -127,7 +140,7 @@ namespace ariel
         }
         else if (player1.cardesTaken() != 0 && player2.cardesTaken() != 0)
         {
-            throw std::invalid_argument("Its a tie\n");
+            std::cout << "Its a tie" << std::endl;
         }
     }
 
